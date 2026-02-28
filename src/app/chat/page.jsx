@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { apiUrl, requestOptions } from "@/lib/api-client";
 
-export default function ChatPage() {
+function ChatPageContent() {
   const searchParams = useSearchParams();
   const requirementId = searchParams.get("requirementId");
 
@@ -277,5 +277,13 @@ export default function ChatPage() {
         </div>
       </div>
     </section>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<p className="ui-muted text-sm">Loading chat...</p>}>
+      <ChatPageContent />
+    </Suspense>
   );
 }
