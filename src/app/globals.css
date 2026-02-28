@@ -214,6 +214,24 @@ html[data-theme="dark"] .ui-nav-link-active:focus-visible {
   animation: uiFadeSlideIn var(--dur-base) var(--ease-smooth);
 }
 
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(1px);
+  transition:
+    opacity 620ms var(--ease-smooth),
+    transform 620ms var(--ease-smooth),
+    filter 620ms var(--ease-smooth);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
 .ui-expand-in {
   animation: uiExpandIn 220ms var(--ease-smooth);
   transform-origin: top;
@@ -253,6 +271,12 @@ html[data-theme="dark"] .ui-nav-link-active:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 

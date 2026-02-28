@@ -54,21 +54,33 @@ const team = [
 const testimonials = [
   {
     quote:
-      "We have been working with Positivus for the past year and have seen a significant increase in website traffic and leads as a result of their efforts.",
+      "We have been working with Positivus for the past year and have seen a significant increase in website traffic and inbound leads as a result of their strategic SEO and PPC efforts.",
     name: "John Smith",
     role: "Marketing Director at XYZ Corp",
   },
   {
     quote:
-      "Their strategic approach to SEO and PPC transformed our pipeline. We now have predictable lead flow and better conversion quality month over month.",
+      "Their strategic approach transformed our pipeline. We now have predictable lead flow, better conversion quality, and clear visibility into campaign performance every month.",
     name: "Ava Martinez",
     role: "Head of Growth at Northstar Tech",
   },
   {
     quote:
-      "The team is responsive, data-driven, and focused on outcomes. Reporting is clear and actionable, making collaboration simple and effective.",
+      "The team is responsive, data-driven, and focused on outcomes. Reporting is clear and actionable, making collaboration simple for both leadership and execution teams.",
     name: "Liam Carter",
     role: "CMO at Brightline Commerce",
+  },
+  {
+    quote:
+      "From content planning to paid media optimization, every milestone was delivered on time. We improved acquisition efficiency without compromising lead quality.",
+    name: "Nora Wilson",
+    role: "Demand Gen Lead at Atlasware",
+  },
+  {
+    quote:
+      "What stood out most was communication. We always knew what was working, what needed adjustment, and what next step would create the biggest impact.",
+    name: "Daniel Reed",
+    role: "Founder at Elevate Studio",
   },
 ];
 
@@ -370,6 +382,9 @@ export default function HomePageMain() {
           <SectionHeader title="Testimonials" desc="Hear from our satisfied clients: read our testimonials to learn more about our digital marketing services." />
           <div className="rounded-[30px] px-5 py-8 text-white md:rounded-[45px] md:px-[70px] md:py-[84px]" style={{ background: darkPanel }}>
             <div className="mx-auto w-full max-w-[1100px]">
+              <p className="mb-6 text-sm uppercase tracking-[0.2em] md:mb-8" style={{ color: "color-mix(in srgb, #ffffff 62%, transparent)" }}>
+                Client Success Stories
+              </p>
               <div className="relative min-h-[290px] md:min-h-[360px]">
                 <div className="md:hidden">
                   <blockquote

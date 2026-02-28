@@ -1,5 +1,5 @@
-import { AuthProvider } from "@/components/AuthProvider";
-import LayoutContent from "@/components/LayoutContent";
+import { AuthProvider } from "../components/AuthProvider";
+import LayoutContent from "../components/LayoutContent";
 import "./globals.css";
 
 export const metadata = {
