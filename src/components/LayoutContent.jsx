@@ -10,7 +10,7 @@ export default function LayoutContent({ children }) {
   return (
     <>
       {!isHome && <NavBar />}
-      <main className={isHome ? "ui-main" : "ui-main mx-auto w-full max-w-5xl px-4 py-8 md:px-6"}>
+      <main className={isHome ? "ui-main" : "ui-main mx-auto w-full max-w-[1240px] px-4 py-8 md:px-6 md:py-10"}>
         {children}
       </main>
     </>

@@ -43,28 +43,28 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md">
-      <div className="text-center">
-        <div
-          className="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl"
-          style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
-        >
-          <Briefcase className="h-8 w-8" />
+    <section className="mx-auto w-full max-w-[720px] space-y-6">
+      <div className="ui-card-strong p-6 md:p-8">
+        <div className="mb-6 text-center md:mb-8">
+          <div
+            className="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl border"
+            style={{ borderColor: "var(--border)", background: "var(--accent)", color: "var(--foreground)" }}
+          >
+            <Briefcase className="h-8 w-8" />
+          </div>
+          <h1 className="ui-title text-3xl md:text-4xl">Welcome back</h1>
+          <p className="ui-muted mt-2 text-sm md:text-base">Login with your email and password to continue.</p>
         </div>
-        <h1 className="ui-title text-3xl">Welcome back</h1>
-        <p className="ui-muted mt-2 text-sm">Sign in to your HireMe account</p>
-      </div>
 
-      <div className="ui-card-strong mt-6 p-6 md:p-8">
         <form onSubmit={onSubmit} className="space-y-5">
           <div>
-            <label className="ui-title mb-2 block text-sm">Email Address</label>
+            <label className="ui-title mb-2 block text-sm">Email address</label>
             <div className="relative">
               <Mail className="pointer-events-none absolute left-3 top-3.5 h-5 w-5 ui-muted" />
               <input
                 type="email"
                 className="ui-input pl-10 pr-3"
-                placeholder="john@example.com"
+                placeholder="you@company.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
@@ -95,11 +95,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="ui-btn flex w-full items-center justify-center gap-2 py-3"
-          >
+          <button type="submit" disabled={loading} className="ui-btn flex w-full items-center justify-center gap-2 py-3">
             {loading ? (
               <>
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -114,28 +110,10 @@ export default function LoginPage() {
         {message ? <p className="ui-alert-success mt-4 text-sm">{message}</p> : null}
         {error ? <p className="ui-alert-error mt-4 text-sm">{error}</p> : null}
 
-        <div className="mt-6 text-center">
-          <p className="ui-muted text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="ui-link">
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-6 text-center">
-        <p className="ui-muted text-xs">
-          By signing in, you agree to our{" "}
-          <Link href="#" className="ui-link">
-            Terms
-          </Link>{" "}
-          and{" "}
-          <Link href="#" className="ui-link">
-            Privacy Policy
-          </Link>
+        <p className="ui-muted mt-6 text-center text-sm">
+          Don&apos;t have an account? <Link href="/signup" className="ui-link">Create one</Link>
         </p>
       </div>
-    </div>
+    </section>
   );
 }

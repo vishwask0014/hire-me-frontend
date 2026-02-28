@@ -79,16 +79,16 @@ export default function NewRequirementPage() {
   }
 
   return (
-    <section className="mx-auto max-w-3xl">
-      <div className="ui-card-strong p-8 shadow-xl">
+    <section className="mx-auto max-w-4xl">
+      <div className="ui-card-strong p-6 md:p-8">
         <div className="mb-7">
-          <p className="ui-link text-xs uppercase tracking-[0.18em]">
+          <p className="rounded-md px-2 py-1 text-xs font-semibold text-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "var(--foreground)", width: "fit-content" }}>
             Hiring Desk
           </p>
-          <h1 className="ui-title mt-2 text-3xl">
+          <h1 className="ui-title mt-3 text-3xl md:text-4xl">
             Post New Requirement
           </h1>
-          <p className="ui-muted mt-2 text-sm">
+          <p className="ui-muted mt-2 text-sm md:text-base">
             Write clear scope, budget, and skills to attract better freelancer matches.
           </p>
         </div>

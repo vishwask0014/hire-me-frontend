@@ -57,27 +57,34 @@ export default function RequirementDetailPage() {
   }
 
   return (
-    <section className="ui-card-strong space-y-4 p-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <h1 className="ui-title text-2xl">{requirement.title}</h1>
-        <span className="ui-chip">
-          Budget: {requirement.budget}
-        </span>
+    <section className="space-y-6">
+      <div className="ui-card-strong space-y-4 p-6 md:p-8">
+        <p className="rounded-md px-2 py-1 text-xs font-semibold text-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "var(--foreground)", width: "fit-content" }}>Requirement</p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h1 className="ui-title text-2xl md:text-4xl">{requirement.title}</h1>
+          <span className="ui-chip">Budget: {requirement.budget}</span>
+        </div>
+        <p className="ui-muted text-sm md:text-base">{requirement.description}</p>
       </div>
-      <p className="ui-muted text-sm">{requirement.description}</p>
-      <p className="ui-muted text-sm">
-        Skills required: {requirement.skills.join(", ")}
-      </p>
-      <p className="ui-muted text-sm">Location: {requirement.location}</p>
-      <p className="ui-muted text-sm">Posted by: {requirement.hirerName}</p>
-      <p className="ui-muted text-sm">
-        Posted at: {new Date(requirement.createdAt).toLocaleString()}
-      </p>
-      <div className="flex items-center gap-3">
-        <Link href="/" className="ui-link inline-block text-sm">
-          Back to Home
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <article className="ui-card p-5">
+          <h2 className="ui-title text-lg">Project Info</h2>
+          <p className="ui-muted mt-3 text-sm">Skills required: {requirement.skills.join(", ")}</p>
+          <p className="ui-muted mt-2 text-sm">Location: {requirement.location}</p>
+        </article>
+        <article className="ui-card p-5">
+          <h2 className="ui-title text-lg">Posted By</h2>
+          <p className="ui-muted mt-3 text-sm">Hirer: {requirement.hirerName}</p>
+          <p className="ui-muted mt-2 text-sm">Posted at: {new Date(requirement.createdAt).toLocaleString()}</p>
+        </article>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <Link href="/requirements" className="ui-btn-ghost inline-block text-sm">
+          Back to Requirements
         </Link>
-        <Link href={`/chat?requirementId=${requirement.id}`} className="ui-link inline-block text-sm">
+        <Link href={`/chat?requirementId=${requirement.id}`} className="ui-btn inline-block text-sm">
           Open Chat
         </Link>
       </div>

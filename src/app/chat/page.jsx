@@ -84,12 +84,21 @@ export default function ChatPage() {
         }
         setMe(user);
 
-        if (requirementId && user.userType === "freelancer") {
-          const thread = await ensureFreelancerThread(requirementId);
-          setActiveThreadId(thread.id);
+        if (requirementId) {
+          try {
+            const thread = await ensureFreelancerThread(requirementId);
+            setActiveThreadId(thread.id);
+          } catch (threadError) {
+            // For hirer users, this can happen if no freelancer is assigned yet.
+            const msg = threadError?.message || "Unable to open chat.";
+            if (!msg.toLowerCase().includes("freelancer is required")) {
+              throw threadError;
+            }
+            setError("Chat can be opened after a freelancer is assigned to this requirement.");
+          }
         }
 
-        await loadThreads();
+        await loadThreads({ preserveSelected: Boolean(requirementId) });
       } catch (initError) {
         setError(initError.message || "Unable to load chat.");
       } finally {
@@ -157,19 +166,19 @@ export default function ChatPage() {
   }
 
   return (
-    <section className="space-y-4">
-      <div className="ui-card-strong p-6">
-        <p className="ui-link text-xs uppercase tracking-[0.18em]">Chat</p>
-        <h1 className="ui-title mt-2 text-3xl">Messages</h1>
-        <p className="ui-muted mt-2 text-sm">
+    <section className="space-y-4 md:space-y-6">
+      <div className="ui-card-strong p-6 md:p-8">
+        <p className="rounded-md px-2 py-1 text-xs font-semibold uppercase text-black tracking-[0.18em]" style={{ background: "var(--accent)", color: "#000", width: "fit-content" }}>Chat</p>
+        <h1 className="ui-title mt-3 text-3xl md:text-4xl">Messages</h1>
+        <p className="ui-muted mt-2 text-sm md:text-base">
           Ask for more details and coordinate directly with your {me.userType === "hirer" ? "freelancers" : "hirers"}.
         </p>
       </div>
 
       {error ? <p className="ui-alert-error text-sm">{error}</p> : null}
 
-      <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
-        <aside className="ui-card h-[70vh] overflow-auto p-4">
+      <div className="grid gap-4 lg:grid-cols-[340px_1fr] lg:gap-6">
+        <aside className="ui-card h-[70vh] overflow-auto p-4 md:p-5">
           <h2 className="ui-title text-base">Conversations</h2>
           <div className="mt-3 space-y-2">
             {threads.length === 0 ? (
@@ -183,8 +192,19 @@ export default function ChatPage() {
                     key={thread.id}
                     type="button"
                     onClick={() => setActiveThreadId(thread.id)}
-                    className={`ui-card block w-full p-3 text-left ${activeThreadId === thread.id ? "ring-2" : ""}`}
-                    style={activeThreadId === thread.id ? { borderColor: "var(--accent)", boxShadow: "0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent)" } : {}}
+                    className={`block w-full rounded-2xl border p-3 text-left ${activeThreadId === thread.id ? "ring-2" : ""}`}
+                    style={
+                      activeThreadId === thread.id
+                        ? {
+                            borderColor: "var(--accent)",
+                            boxShadow: "0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent)",
+                            background: "color-mix(in srgb, var(--surface) 75%, var(--surface-2) 25%)",
+                          }
+                        : {
+                            borderColor: "color-mix(in srgb, var(--border) 35%, transparent)",
+                            background: "var(--surface)",
+                          }
+                    }
                   >
                     <p className="ui-title text-sm">{thread.requirementTitle}</p>
                     <p className="ui-muted mt-1 text-xs">with {counterpart}</p>

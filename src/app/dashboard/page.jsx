@@ -103,25 +103,25 @@ export default function DashboardPage() {
   const showAccepted = tab === "all" || tab === "accepted";
 
   return (
-    <section className="space-y-6">
-      <div className="ui-card-strong p-6">
-        <p className="ui-link text-xs uppercase tracking-[0.18em]">Dashboard</p>
-        <h1 className="ui-title mt-2 text-3xl">
-          {isFreelancer ? "Freelancer Dashboard" : "Hirer Dashboard"}
+    <section className="space-y-6 md:space-y-8">
+      <div className="ui-card-strong p-6 md:p-8">
+        <p className="rounded-md px-2 py-1 text-xs font-semibold !text-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "#000", width: "fit-content" }}>Dashboard</p>
+        <h1 className="ui-title mt-3 text-3xl md:text-4xl">
+          {isFreelancer ? "Freelancer Dashboard" : "ssss"}
         </h1>
-        <p className="ui-muted mt-2 text-sm">
+        <p className="ui-muted mt-2 text-sm md:text-base">
           Welcome {dashboard.user?.name || "User"}.
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <article className="ui-card p-5">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+        <article className="ui-card p-5 md:p-6">
           <p className="ui-muted text-xs uppercase tracking-[0.14em]">Active</p>
-          <p className="ui-title mt-2 text-3xl">{dashboard.stats?.active ?? 0}</p>
+          <p className="ui-title mt-2 text-3xl md:text-4xl">{dashboard.stats?.active ?? 0}</p>
         </article>
-        <article className="ui-card p-5">
+        <article className="ui-card p-5 md:p-6">
           <p className="ui-muted text-xs uppercase tracking-[0.14em]">Accepted</p>
-          <p className="ui-title mt-2 text-3xl">{dashboard.stats?.accepted ?? 0}</p>
+          <p className="ui-title mt-2 text-3xl md:text-4xl">{dashboard.stats?.accepted ?? 0}</p>
         </article>
       </div>
 
@@ -144,16 +144,16 @@ export default function DashboardPage() {
 
       {error ? <p className="ui-alert-error text-sm">{error}</p> : null}
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         {showActive ? (
-          <section className="ui-card p-5">
-            <h2 className="ui-title text-lg">Active Requirements</h2>
+          <section className="ui-card p-5 md:p-6">
+            <h2 className="ui-title text-xl">Active Requirements</h2>
             <div className="mt-4 space-y-3">
               {(dashboard.activeRequirements || []).length === 0 ? (
                 <p className="ui-muted text-sm">No active requirements.</p>
               ) : (
                 dashboard.activeRequirements.map((item) => (
-                  <article key={item.id} className="ui-card p-4">
+                  <article key={item.id} className="rounded-2xl border p-4" style={{ borderColor: "color-mix(in srgb, var(--border) 35%, transparent)", background: "color-mix(in srgb, var(--surface) 70%, var(--surface-2) 30%)" }}>
                     <h3 className="ui-title text-base">{item.title}</h3>
                     <p className="ui-muted mt-1 text-xs">
                       Budget: {item.budget} | Location: {item.location}
@@ -163,9 +163,13 @@ export default function DashboardPage() {
                       <Link href={`/requirements/${item.id}`} className="ui-link text-sm">
                         View
                       </Link>
-                      <Link href={`/chat?requirementId=${item.id}`} className="ui-link text-sm">
-                        Chat
-                      </Link>
+                      {isFreelancer || item.acceptedFreelancerId ? (
+                        <Link href={`/chat?requirementId=${item.id}`} className="ui-link text-sm">
+                          Chat
+                        </Link>
+                      ) : (
+                        <span className="ui-muted text-xs">Chat after acceptance</span>
+                      )}
                       {isFreelancer ? (
                         <button
                           type="button"
@@ -185,14 +189,14 @@ export default function DashboardPage() {
         ) : null}
 
         {showAccepted ? (
-          <section className="ui-card p-5">
-            <h2 className="ui-title text-lg">Accepted Requirements</h2>
+          <section className="ui-card p-5 md:p-6">
+            <h2 className="ui-title text-xl">Accepted Requirements</h2>
             <div className="mt-4 space-y-3">
               {(dashboard.acceptedRequirements || []).length === 0 ? (
                 <p className="ui-muted text-sm">No accepted requirements.</p>
               ) : (
                 dashboard.acceptedRequirements.map((item) => (
-                  <article key={item.id} className="ui-card p-4">
+                  <article key={item.id} className="rounded-2xl border p-4" style={{ borderColor: "color-mix(in srgb, var(--border) 35%, transparent)", background: "color-mix(in srgb, var(--surface) 70%, var(--surface-2) 30%)" }}>
                     <h3 className="ui-title text-base">{item.title}</h3>
                     <p className="ui-muted mt-1 text-xs">
                       {isFreelancer

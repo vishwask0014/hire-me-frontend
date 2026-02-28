@@ -105,26 +105,26 @@ export default function RequirementsPage() {
   }
 
   return (
-    <section className="space-y-6">
-      <div className="ui-card-strong p-6">
-        <p className="ui-link text-xs uppercase tracking-[0.18em]">Requirements</p>
-        <h1 className="ui-title mt-2 text-3xl">All Requirements</h1>
-        <p className="ui-muted mt-2 text-sm">
+    <section className="space-y-6 md:space-y-8">
+      <div className="ui-card-strong p-6 md:p-8">
+        <p className="rounded-md px-2 py-1 text-xs font-semibold tet-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "var(--foreground)", width: "fit-content" }}>Requirements</p>
+        <h1 className="ui-title mt-3 text-3xl md:text-4xl">All Requirements</h1>
+        <p className="ui-muted mt-2 text-sm md:text-base">
           This page is shared for both hirer and freelancer users. Browse all requirements and collaborate.
         </p>
       </div>
 
       {error ? <p className="ui-alert-error text-sm">{error}</p> : null}
 
-      <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
         <div className="space-y-4">
           {requirements.length === 0 ? (
             <p className="ui-card ui-muted p-5 text-sm">No requirements posted yet.</p>
           ) : (
             requirements.map((item) => (
-              <article key={item.id} className="ui-card p-5">
+              <article key={item.id} className="ui-card p-5 md:p-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="ui-title text-lg">{item.title}</h2>
+                  <h2 className="ui-title text-xl">{item.title}</h2>
                   <span className="ui-chip">Budget: {item.budget}</span>
                 </div>
                 <p className="ui-muted mt-2 line-clamp-2 text-sm">{item.description}</p>
@@ -132,22 +132,26 @@ export default function RequirementsPage() {
                   Skills: {item.skills.join(", ")} | Location: {item.location} | By: {item.hirerName}
                 </p>
                 <div className="mt-3 flex items-center gap-3">
-                  <Link href={`/requirements/${item.id}`} className="ui-link text-sm">
+                  <Link href={`/requirements/${item.id}`} className="ui-link text-sm md:text-base">
                     View Details
                   </Link>
-                  <Link href={`/chat?requirementId=${item.id}`} className="ui-link text-sm">
-                    Chat
-                  </Link>
+                  {user.userType === "freelancer" || item.acceptedFreelancerId ? (
+                    <Link href={`/chat?requirementId=${item.id}`} className="ui-link text-sm md:text-base">
+                      Chat
+                    </Link>
+                  ) : (
+                    <span className="ui-muted text-sm">Chat available after acceptance</span>
+                  )}
                 </div>
               </article>
             ))
           )}
         </div>
 
-        <aside className="ui-card p-5" id="post">
+        <aside className="ui-card p-5 md:p-6" id="post">
           {user.userType === "hirer" ? (
             <>
-              <h2 className="ui-title text-lg">Post Requirement</h2>
+              <h2 className="ui-title text-xl">Post Requirement</h2>
               <p className="ui-muted mt-2 text-sm">Create a new requirement from this page.</p>
               <form onSubmit={onPostRequirement} className="mt-4 space-y-3">
                 <input
@@ -208,4 +212,3 @@ export default function RequirementsPage() {
     </section>
   );
 }
-
