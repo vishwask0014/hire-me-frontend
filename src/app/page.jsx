@@ -4,26 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
 
-type Requirement = {
-  id: string;
-  title: string;
-  description: string;
-  budget: string;
-  skills: string[];
-  location: string;
-  createdAt: string;
-  hirerName: string;
-};
-
-type User = {
-  name: string;
-  userType: "hirer" | "freelancer";
-};
-
 export default function Home() {
-  const [requirements, setRequirements] = useState<Requirement[]>([]);
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string>("");
+  const [requirements, setRequirements] = useState([]);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function load() {

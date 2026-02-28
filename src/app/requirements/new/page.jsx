@@ -1,13 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
-
-type User = {
-  name: string;
-  userType: "hirer" | "freelancer";
-};
 
 export default function NewRequirementPage() {
   const [title, setTitle] = useState("");
@@ -15,7 +10,7 @@ export default function NewRequirementPage() {
   const [budget, setBudget] = useState("");
   const [skills, setSkills] = useState("");
   const [location, setLocation] = useState("");
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,7 +24,7 @@ export default function NewRequirementPage() {
     loadUser();
   }, []);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event) {
     event.preventDefault();
     setLoading(true);
     setError("");

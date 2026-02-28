@@ -5,20 +5,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
 
-type Requirement = {
-  id: string;
-  title: string;
-  description: string;
-  budget: string;
-  skills: string[];
-  location: string;
-  createdAt: string;
-  hirerName: string;
-};
-
 export default function RequirementDetailPage() {
-  const params = useParams<{ id: string }>();
-  const [requirement, setRequirement] = useState<Requirement | null>(null);
+  const params = useParams();
+  const [requirement, setRequirement] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
