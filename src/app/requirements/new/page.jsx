@@ -55,12 +55,12 @@ export default function NewRequirementPage() {
 
   if (!user) {
     return (
-      <section className="rounded border border-amber-300 bg-amber-50 p-5">
-        <h1 className="text-xl font-semibold text-amber-950">Login Required</h1>
-        <p className="mt-2 text-sm text-amber-900">
+      <section className="ui-card p-6">
+        <h1 className="ui-title text-xl">Login Required</h1>
+        <p className="ui-muted mt-2 text-sm">
           Please login as a hirer user to post requirement details.
         </p>
-        <Link href="/login" className="mt-3 inline-block text-sm font-medium text-blue-700">
+        <Link href="/login" className="ui-link mt-4 inline-block text-sm">
           Go to Login
         </Link>
       </section>
@@ -69,9 +69,9 @@ export default function NewRequirementPage() {
 
   if (user.userType !== "hirer") {
     return (
-      <section className="rounded border border-rose-300 bg-rose-50 p-5">
-        <h1 className="text-xl font-semibold text-rose-950">Not Allowed</h1>
-        <p className="mt-2 text-sm text-rose-900">
+      <section className="ui-card p-6">
+        <h1 className="ui-title text-xl">Not Allowed</h1>
+        <p className="ui-muted mt-2 text-sm">
           You are logged in as freelancer. Only hirer users can post requirements.
         </p>
       </section>
@@ -79,57 +79,99 @@ export default function NewRequirementPage() {
   }
 
   return (
-    <section className="mx-auto max-w-2xl rounded border border-slate-200 bg-white p-6">
-      <h1 className="text-2xl font-bold text-slate-900">Post Requirement</h1>
-      <p className="mt-1 text-sm text-slate-600">
-        Add a clear title and full details so freelancers can apply.
-      </p>
-      <form onSubmit={onSubmit} className="mt-5 space-y-4">
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Requirement title"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          required
-        />
-        <textarea
-          className="min-h-36 w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Detailed requirement description"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          required
-        />
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Budget (example: USD 1500 fixed)"
-          value={budget}
-          onChange={(event) => setBudget(event.target.value)}
-          required
-        />
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Skills (comma separated)"
-          value={skills}
-          onChange={(event) => setSkills(event.target.value)}
-          required
-        />
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Location"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded bg-slate-900 px-3 py-2 font-medium text-white disabled:opacity-60"
-        >
-          {loading ? "Posting..." : "Post Requirement"}
-        </button>
-      </form>
-      {message ? <p className="mt-3 text-sm text-green-700">{message}</p> : null}
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+    <section className="mx-auto max-w-3xl">
+      <div className="ui-card-strong p-8 shadow-xl">
+        <div className="mb-7">
+          <p className="ui-link text-xs uppercase tracking-[0.18em]">
+            Hiring Desk
+          </p>
+          <h1 className="ui-title mt-2 text-3xl">
+            Post New Requirement
+          </h1>
+          <p className="ui-muted mt-2 text-sm">
+            Write clear scope, budget, and skills to attract better freelancer matches.
+          </p>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-5">
+          <div>
+            <label className="ui-title mb-2 block text-sm">
+              Requirement Title
+            </label>
+            <input
+              className="ui-input"
+              placeholder="Example: Build inventory dashboard for Shopify store"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="ui-title mb-2 block text-sm">
+              Description
+            </label>
+            <textarea
+              className="ui-textarea min-h-40"
+              placeholder="Explain project goals, expected deliverables, timeline, and success criteria."
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              required
+            />
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="ui-title mb-2 block text-sm">
+                Budget
+              </label>
+              <input
+                className="ui-input"
+                placeholder="Example: USD 1500 fixed"
+                value={budget}
+                onChange={(event) => setBudget(event.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="ui-title mb-2 block text-sm">
+                Location
+              </label>
+              <input
+                className="ui-input"
+                placeholder="Remote / City / Timezone"
+                value={location}
+                onChange={(event) => setLocation(event.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="ui-title mb-2 block text-sm">
+              Skills
+            </label>
+            <input
+              className="ui-input"
+              placeholder="React, Node.js, PostgreSQL (comma separated)"
+              value={skills}
+              onChange={(event) => setSkills(event.target.value)}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="ui-btn w-full"
+          >
+            {loading ? "Posting Requirement..." : "Post Requirement"}
+          </button>
+        </form>
+
+        {message ? <p className="ui-alert-success mt-4 text-sm">{message}</p> : null}
+        {error ? <p className="ui-alert-error mt-4 text-sm">{error}</p> : null}
+      </div>
     </section>
   );
 }

@@ -1,5 +1,5 @@
-import NavBar from "@/components/NavBar";
 import { AuthProvider } from "@/components/AuthProvider";
+import LayoutContent from "@/components/LayoutContent";
 import "./globals.css";
 
 export const metadata = {
@@ -11,8 +11,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased">
-          <NavBar />
-          <main className="mx-auto w-full max-w-5xl px-6 py-8">{children}</main>
+        <AuthProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </AuthProvider>
       </body>
     </html>
   );

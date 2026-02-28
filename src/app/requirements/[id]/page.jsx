@@ -9,12 +9,17 @@ export default function RequirementDetailPage() {
   const params = useParams();
   const [requirement, setRequirement] = useState(null);
   const [error, setError] = useState("");
+  const [requiresLogin, setRequiresLogin] = useState(false);
 
   useEffect(() => {
     async function load() {
       try {
         const response = await fetch(apiUrl(`/api/requirements/${params.id}`), requestOptions);
         const data = await response.json();
+        if (response.status === 401) {
+          setRequiresLogin(true);
+          return;
+        }
         if (!response.ok) {
           setError(data.error ?? "Unable to load requirement.");
           return;
@@ -29,36 +34,53 @@ export default function RequirementDetailPage() {
 
   if (error) {
     return (
-      <section className="rounded border border-rose-300 bg-rose-50 p-5">
-        <p className="text-sm text-rose-900">{error}</p>
+      <section className="ui-alert-error">
+        <p className="text-sm">{error}</p>
+      </section>
+    );
+  }
+
+  if (requiresLogin) {
+    return (
+      <section className="ui-card p-6">
+        <h1 className="ui-title text-xl">Login Required</h1>
+        <p className="ui-muted mt-2 text-sm">Please login to access requirement details.</p>
+        <Link href="/login" className="ui-link mt-4 inline-block text-sm">
+          Go to Login
+        </Link>
       </section>
     );
   }
 
   if (!requirement) {
-    return <p className="text-sm text-slate-600">Loading requirement details...</p>;
+    return <p className="ui-muted text-sm">Loading requirement details...</p>;
   }
 
   return (
-    <section className="space-y-4 rounded border border-slate-200 bg-white p-6">
+    <section className="ui-card-strong space-y-4 p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <h1 className="text-2xl font-bold text-slate-900">{requirement.title}</h1>
-        <span className="rounded bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
+        <h1 className="ui-title text-2xl">{requirement.title}</h1>
+        <span className="ui-chip">
           Budget: {requirement.budget}
         </span>
       </div>
-      <p className="text-sm text-slate-700">{requirement.description}</p>
-      <p className="text-sm text-slate-600">
+      <p className="ui-muted text-sm">{requirement.description}</p>
+      <p className="ui-muted text-sm">
         Skills required: {requirement.skills.join(", ")}
       </p>
-      <p className="text-sm text-slate-600">Location: {requirement.location}</p>
-      <p className="text-sm text-slate-600">Posted by: {requirement.hirerName}</p>
-      <p className="text-sm text-slate-500">
+      <p className="ui-muted text-sm">Location: {requirement.location}</p>
+      <p className="ui-muted text-sm">Posted by: {requirement.hirerName}</p>
+      <p className="ui-muted text-sm">
         Posted at: {new Date(requirement.createdAt).toLocaleString()}
       </p>
-      <Link href="/" className="inline-block text-sm font-medium text-blue-700">
-        Back to Home
-      </Link>
+      <div className="flex items-center gap-3">
+        <Link href="/" className="ui-link inline-block text-sm">
+          Back to Home
+        </Link>
+        <Link href={`/chat?requirementId=${requirement.id}`} className="ui-link inline-block text-sm">
+          Open Chat
+        </Link>
+      </div>
     </section>
   );
 }

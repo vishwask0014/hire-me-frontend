@@ -3,25 +3,78 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
+import HomePageMain from "@/components/HomePageMain";
+
+const services = [
+  {
+    title: "Requirement Discovery",
+    description: "Convert business goals into clear technical scopes so freelancers can respond faster.",
+  },
+  {
+    title: "Freelancer Matching",
+    description: "Filter by skills, budget, and location to connect with the right talent quickly.",
+  },
+  {
+    title: "Live Collaboration",
+    description: "Built-in chat keeps requirement discussions and updates in one place.",
+  },
+  {
+    title: "Acceptance Workflow",
+    description: "Track active and accepted requirements with role-specific dashboards.",
+  },
+];
+
+const processSteps = [
+  "Create account as hirer or freelancer",
+  "Post or browse requirements",
+  "Open chat to discuss details",
+  "Accept and track work from dashboard",
+];
+
+const testimonials = [
+  {
+    name: "Rohan Mehta",
+    role: "Startup Founder",
+    text: "We moved from endless calls to clear requirement threads and accepted faster in a week.",
+  },
+  {
+    name: "Aisha Khan",
+    role: "Freelance Developer",
+    text: "The active and accepted views make pipeline management easy and reduce missed opportunities.",
+  },
+];
 
 export default function Home() {
   const [requirements, setRequirements] = useState([]);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
       try {
-        const [requirementsRes, meRes] = await Promise.all([
-          fetch(apiUrl("/api/requirements"), requestOptions),
-          fetch(apiUrl("/api/auth/me"), requestOptions),
-        ]);
-        const requirementsData = await requirementsRes.json();
+        const meRes = await fetch(apiUrl("/api/auth/me"), requestOptions);
         const meData = await meRes.json();
+        const meUser = meData.user ?? null;
+        setUser(meUser);
+
+        if (!meUser) {
+          setRequirements([]);
+          return;
+        }
+
+        const requirementsRes = await fetch(apiUrl("/api/requirements"), requestOptions);
+        const requirementsData = await requirementsRes.json();
+        if (!requirementsRes.ok) {
+          setError(requirementsData.error ?? "Failed to load requirements.");
+          return;
+        }
         setRequirements(requirementsData.requirements ?? []);
-        setUser(meData.user ?? null);
       } catch {
         setError("Failed to load data. Please refresh.");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -33,66 +86,57 @@ export default function Home() {
     window.location.reload();
   }
 
+  if (loading) {
+    return <p className="ui-muted text-sm">Loading...</p>;
+  }
+
+  if (!user) {
+    return (
+      <HomePageMain />
+    );
+  }
+
   return (
     <section className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-slate-900 px-5 py-4 text-white">
+      <div className="ui-card-strong flex flex-wrap items-center justify-between gap-3 px-6 py-5">
         <div>
-          <h1 className="text-2xl font-bold">HireMe Requirements Board</h1>
-          <p className="text-sm text-slate-200">
-            Signup as hirer/freelancer, then post or browse requirements.
-          </p>
+          <h1 className="ui-title text-2xl">HireMe Requirements Board</h1>
+          <p className="ui-muted mt-1 text-sm">Signup as hirer/freelancer, then post or browse requirements.</p>
         </div>
         <div className="flex gap-2">
-          {user ? (
-            <>
-              <span className="rounded bg-slate-700 px-3 py-2 text-sm">
-                {user.name} ({user.userType})
-              </span>
-              <button
-                type="button"
-                onClick={logout}
-                className="rounded bg-white px-3 py-2 text-sm font-medium text-slate-900"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="rounded bg-white px-3 py-2 text-sm font-medium text-slate-900">
-                Login
-              </Link>
-              <Link href="/signup" className="rounded border border-white px-3 py-2 text-sm font-medium">
-                Signup
-              </Link>
-            </>
-          )}
+          <span className="ui-chip">
+            {user.name} ({user.userType})
+          </span>
+          <button type="button" onClick={logout} className="ui-btn-ghost">
+            Logout
+          </button>
         </div>
       </div>
 
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="ui-alert-error text-sm">{error}</p> : null}
 
       <div className="grid gap-4">
         {requirements.length === 0 ? (
-          <p className="rounded border border-slate-200 bg-white p-4 text-slate-600">
-            No requirements posted yet.
-          </p>
+          <p className="ui-card ui-muted p-5 text-sm">No requirements posted yet.</p>
         ) : (
           requirements.map((item) => (
-            <article key={item.id} className="rounded border border-slate-200 bg-white p-4">
+            <article key={item.id} className="ui-card p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-lg font-semibold text-slate-900">{item.title}</h2>
-                <span className="text-sm text-slate-500">Budget: {item.budget}</span>
+                <h2 className="ui-title text-lg">{item.title}</h2>
+                <span className="ui-chip">Budget: {item.budget}</span>
               </div>
-              <p className="mt-2 line-clamp-2 text-sm text-slate-700">{item.description}</p>
-              <p className="mt-2 text-xs text-slate-500">
+              <p className="ui-muted mt-2 line-clamp-2 text-sm">{item.description}</p>
+              <p className="ui-muted mt-2 text-xs">
                 Skills: {item.skills.join(", ")} | Location: {item.location} | By: {item.hirerName}
               </p>
-              <Link
-                href={`/requirements/${item.id}`}
-                className="mt-3 inline-block text-sm font-medium text-blue-700"
-              >
-                View Details
-              </Link>
+              <div className="mt-3 flex items-center gap-3">
+                <Link href={`/requirements/${item.id}`} className="ui-link inline-block text-sm">
+                  View Details
+                </Link>
+                <Link href={`/chat?requirementId=${item.id}`} className="ui-link inline-block text-sm">
+                  Chat
+                </Link>
+              </div>
             </article>
           ))
         )}

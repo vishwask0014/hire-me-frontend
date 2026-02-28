@@ -8,6 +8,7 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("hirer");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +24,7 @@ export default function SignupPage() {
       const response = await fetch(apiUrl("/api/auth/signup"), {
         ...requestOptions,
         method: "POST",
-        body: JSON.stringify({ name, email, phone, userType }),
+        body: JSON.stringify({ name, email, phone, password, userType }),
       });
       const data = await response.json();
 
@@ -44,55 +45,66 @@ export default function SignupPage() {
   }
 
   return (
-    <section className="mx-auto max-w-lg rounded border border-slate-200 bg-white p-6">
-      <h1 className="text-2xl font-bold text-slate-900">Create Account</h1>
-      <p className="mt-1 text-sm text-slate-600">
+    <section className="mx-auto max-w-lg">
+      <div className="ui-card-strong p-6 md:p-8">
+        <h1 className="ui-title text-2xl">Create Account</h1>
+        <p className="ui-muted mt-1 text-sm">
         Register as a hirer or freelancer.
-      </p>
-      <form onSubmit={onSubmit} className="mt-5 space-y-4">
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Full name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          required
-        />
-        <input
-          type="email"
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        />
-        <input
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          placeholder="Phone"
-          value={phone}
-          onChange={(event) => setPhone(event.target.value)}
-          required
-        />
-        <select
-          className="w-full rounded border border-slate-300 px-3 py-2"
-          value={userType}
-          onChange={(event) => setUserType(event.target.value)}
-        >
-          <option value="hirer">Hirer</option>
-          <option value="freelancer">Freelancer</option>
-        </select>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded bg-slate-900 px-3 py-2 font-medium text-white disabled:opacity-60"
-        >
-          {loading ? "Creating..." : "Signup"}
-        </button>
-      </form>
-      {message ? <p className="mt-3 text-sm text-green-700">{message}</p> : null}
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
-      <p className="mt-4 text-sm text-slate-600">
-        Already registered? <Link href="/login" className="text-blue-700">Login</Link>
-      </p>
+        </p>
+        <form onSubmit={onSubmit} className="mt-5 space-y-4">
+          <input
+            className="ui-input"
+            placeholder="Full name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+          <input
+            type="email"
+            className="ui-input"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <input
+            className="ui-input"
+            placeholder="Phone"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="ui-input"
+            placeholder="Password (min 6 chars)"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            minLength={6}
+            required
+          />
+          <select
+            className="ui-select"
+            value={userType}
+            onChange={(event) => setUserType(event.target.value)}
+          >
+            <option value="hirer">Hirer</option>
+            <option value="freelancer">Freelancer</option>
+          </select>
+          <button
+            type="submit"
+            disabled={loading}
+            className="ui-btn w-full"
+          >
+            {loading ? "Creating..." : "Signup"}
+          </button>
+        </form>
+        {message ? <p className="ui-alert-success mt-4 text-sm">{message}</p> : null}
+        {error ? <p className="ui-alert-error mt-4 text-sm">{error}</p> : null}
+        <p className="ui-muted mt-4 text-sm">
+          Already registered? <Link href="/login" className="ui-link">Login</Link>
+        </p>
+      </div>
     </section>
   );
 }
