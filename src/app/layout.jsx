@@ -11,10 +11,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased">
-        <AuthProvider>
           <NavBar />
           <main className="mx-auto w-full max-w-5xl px-6 py-8">{children}</main>
-        </AuthProvider>
       </body>
     </html>
   );
