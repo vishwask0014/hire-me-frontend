@@ -60,10 +60,13 @@ export default function LoginPage() {
           <div>
             <label className="ui-title mb-2 block text-sm">Email address</label>
             <div className="relative">
-              <Mail className="pointer-events-none absolute left-3 top-3.5 h-5 w-5 ui-muted" />
+              <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+                <Mail className="h-5 w-5 ui-muted" />
+              </span>
               <input
                 type="email"
-                className="ui-input pl-10 pr-3"
+                className="ui-input !h-12"
+                style={{ paddingLeft: "42px" }}
                 placeholder="you@company.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -75,10 +78,13 @@ export default function LoginPage() {
           <div>
             <label className="ui-title mb-2 block text-sm">Password</label>
             <div className="relative">
-              <Lock className="pointer-events-none absolute left-3 top-3.5 h-5 w-5 ui-muted" />
+              <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+                <Lock className="h-5 w-5 ui-muted" />
+              </span>
               <input
                 type={showPassword ? "text" : "password"}
-                className="ui-input pl-10 pr-12"
+                className="ui-input !h-12 pr-12"
+                style={{ paddingLeft: "42px" }}
                 placeholder="Enter your password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -88,7 +94,7 @@ export default function LoginPage() {
                 type="button"
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-3.5 ui-muted"
+                className="absolute inset-y-0 right-0 inline-flex items-center justify-center pr-3.5 ui-muted"
               >
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
