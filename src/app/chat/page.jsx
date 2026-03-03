@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { apiUrl, requestOptions } from "@/lib/api-client";
 
@@ -17,11 +17,18 @@ function ChatPageContent() {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [liveStatus, setLiveStatus] = useState("connecting");
+  const activeThreadIdRef = useRef("");
+  const messagesEndRef = useRef(null);
 
   const activeThreadMeta = useMemo(
     () => threads.find((item) => item.id === activeThreadId) || null,
     [threads, activeThreadId],
   );
+
+  useEffect(() => {
+    activeThreadIdRef.current = activeThreadId;
+  }, [activeThreadId]);
 
   const loadThreads = useCallback(async (options = {}) => {
     const query = requirementId ? `?requirementId=${encodeURIComponent(requirementId)}` : "";
@@ -122,6 +129,70 @@ function ChatPageContent() {
     run();
   }, [activeThreadId, loadThreadDetail]);
 
+  useEffect(() => {
+    if (!activeThread?.messages?.length) return;
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [activeThread?.messages?.length]);
+
+  const syncChats = useCallback(async (threadId = "") => {
+    try {
+      await loadThreads({ preserveSelected: true });
+      const targetThreadId = threadId || activeThreadIdRef.current;
+      if (targetThreadId) {
+        await loadThreadDetail(targetThreadId);
+      }
+    } catch {
+      // Keep background sync silent.
+    }
+  }, [loadThreadDetail, loadThreads]);
+
+  useEffect(() => {
+    if (!me) return undefined;
+
+    const eventSource = new EventSource(apiUrl("/api/chat/events"), { withCredentials: true });
+
+    eventSource.addEventListener("connected", () => {
+      setLiveStatus("live");
+    });
+
+    eventSource.addEventListener("chat:update", (event) => {
+      try {
+        const payload = JSON.parse(event.data || "{}");
+        void syncChats(payload.threadId || "");
+      } catch {
+        void syncChats();
+      }
+    });
+
+    eventSource.addEventListener("thread:new", (event) => {
+      try {
+        const payload = JSON.parse(event.data || "{}");
+        void syncChats(payload.threadId || "");
+      } catch {
+        void syncChats();
+      }
+    });
+
+    eventSource.onerror = () => {
+      setLiveStatus("reconnecting");
+    };
+
+    return () => {
+      eventSource.close();
+      setLiveStatus("offline");
+    };
+  }, [me, syncChats]);
+
+  useEffect(() => {
+    if (!me) return undefined;
+
+    const intervalId = setInterval(() => {
+      void syncChats();
+    }, 4000);
+
+    return () => clearInterval(intervalId);
+  }, [me, syncChats]);
+
   async function sendMessage(event) {
     event.preventDefault();
     const text = messageText.trim();
@@ -140,8 +211,30 @@ function ChatPageContent() {
         throw new Error(data.error || "Unable to send message.");
       }
       setMessageText("");
-      await loadThreadDetail(activeThreadId);
-      await loadThreads({ preserveSelected: true });
+      const createdMessage = data.message || null;
+      if (createdMessage) {
+        setActiveThread((prev) => {
+          if (!prev || prev.id !== activeThreadId) return prev;
+          return {
+            ...prev,
+            messages: [...(prev.messages || []), createdMessage],
+            updatedAt: createdMessage.createdAt || prev.updatedAt,
+          };
+        });
+        setThreads((prev) => {
+          const next = prev.map((thread) => {
+            if (thread.id !== activeThreadId) return thread;
+            return {
+              ...thread,
+              lastMessage: createdMessage.text || thread.lastMessage,
+              lastMessageAt: createdMessage.createdAt || thread.lastMessageAt,
+              updatedAt: createdMessage.createdAt || thread.updatedAt,
+            };
+          });
+          return next.sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));
+        });
+      }
+      await syncChats(activeThreadId);
     } catch (sendError) {
       setError(sendError.message || "Unable to send message.");
     } finally {
@@ -172,6 +265,9 @@ function ChatPageContent() {
         <h1 className="ui-title mt-3 text-3xl md:text-4xl">Messages</h1>
         <p className="ui-muted mt-2 text-sm md:text-base">
           Ask for more details and coordinate directly with your {me.userType === "hirer" ? "freelancers" : "hirers"}.
+        </p>
+        <p className="ui-muted mt-2 text-xs">
+          Live sync: {liveStatus}
         </p>
       </div>
 
@@ -249,6 +345,7 @@ function ChatPageContent() {
                     );
                   })
                 )}
+                <div ref={messagesEndRef} />
               </div>
 
               <form onSubmit={sendMessage} className="border-t p-4" style={{ borderColor: "var(--border)" }}>
