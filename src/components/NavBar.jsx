@@ -67,6 +67,7 @@ export default function NavBar() {
   const isRequirementsActive = pathname === "/requirements" || pathname.startsWith("/requirements/");
   const isChatActive = pathname === "/chat";
   const isProfileActive = pathname === "/profile";
+  const isPortfolioActive = pathname === "/portfolio";
   const isSignupActive = pathname === "/signup";
   const isLoginActive = pathname === "/login";
 
@@ -79,15 +80,18 @@ export default function NavBar() {
 
   const authLinks = isAuthenticated
     ? [
-        { href: "/dashboard", label: "Dashboard", active: isDashboardActive },
-        { href: "/requirements", label: "Requirements", active: isRequirementsActive },
-        { href: "/chat", label: "Chat", active: isChatActive },
-        { href: "/profile", label: "Profile", active: isProfileActive },
-      ]
+      // { href: "/dashboard", label: "Dashboard", active: isDashboardActive },
+      // { href: "/requirements", label: "Requirements", active: isRequirementsActive },
+      { href: "/chat", label: "Chat", active: isChatActive },
+      // ...(user?.userType === "freelancer"
+      //   ? [{ href: "/portfolio", label: "Portfolio", active: isPortfolioActive }]
+      //   : []),
+      // { href: "/profile", label: "Profile", active: isProfileActive },
+    ]
     : [
-        { href: "/signup", label: "Signup", active: isSignupActive },
-        { href: "/login", label: "Login", active: isLoginActive },
-      ];
+      { href: "/signup", label: "Signup", active: isSignupActive },
+      { href: "/login", label: "Login", active: isLoginActive },
+    ];
 
   return (
     <nav className="sticky top-0 z-50 border-b backdrop-blur-sm" style={{ borderColor: "color-mix(in srgb, var(--border) 20%, transparent)", background: "color-mix(in srgb, var(--background) 92%, transparent)" }}>
@@ -127,6 +131,8 @@ export default function NavBar() {
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             {theme === "dark" ? "Light" : "Dark"}
           </button>
+
+          {/* ----- Profile Dropdown ----- */}
           {isLoading ? (
             <div className="ui-muted">Loading...</div>
           ) : isAuthenticated ? (
@@ -150,6 +156,7 @@ export default function NavBar() {
                 <ChevronDown className={`h-4 w-4 transition-transform ${profileOpen ? "rotate-180" : ""}`} />
               </button>
 
+              {/* ----- Profile Dropdown Menu ------ */}
               {profileOpen ? (
                 <div
                   className="ui-fade-slide-in absolute right-0 mt-2 w-80 overflow-hidden rounded-2xl border shadow-xl"
@@ -160,32 +167,39 @@ export default function NavBar() {
                   </div>
 
                   <div className="p-4">
-                    <div className="flex items-center gap-3 rounded-xl border p-3" style={{ borderColor: "color-mix(in srgb, var(--border) 24%, transparent)" }}>
-                      <span
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold"
-                        style={{ background: "var(--accent)", color: "#000" }}
-                      >
-                        {initials}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate ui-title text-sm">{user?.name || "User"}</p>
-                        <p className="truncate ui-muted text-xs">{user?.email || "No email"}</p>
-                      </div>
-                    </div>
+                    <div className="rounded-xl border p-3" style={{ borderColor: "color-mix(in srgb, var(--border) 24%, transparent)" }}>
 
-                    <div className="mt-3 rounded-xl border p-3 text-xs" style={{ borderColor: "color-mix(in srgb, var(--border) 24%, transparent)" }}>
-                      <div className="flex items-center justify-between">
-                        <span className="ui-muted">Role</span>
-                        <span className="rounded-md px-2 py-0.5 font-semibold capitalize" style={{ background: "var(--accent)", color: "#000" }}>
-                          {user?.userType || "member"}
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold"
+                          style={{ background: "var(--accent)", color: "#000" }}
+                        >
+                          {initials}
                         </span>
-                      </div>
-                      {user?.phone ? (
-                        <div className="mt-2 flex items-center justify-between">
-                          <span className="ui-muted">Phone</span>
-                          <span className="ui-title">{user.phone}</span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1 mb-0.5">
+                            <p className="truncate ui-title text-sm">{user?.name || "User"}</p>
+                            <span className="rounded-md px-2 py-0.5 font-semibold capitalize text-xs" style={{ background: "var(--accent)", color: "#000" }}>
+                              {user?.userType || "member"}
+                            </span>
+                          </div>
+                          <p className="truncate ui-muted text-xs">{user?.email || "No email"} </p>
                         </div>
-                      ) : null}
+                      </div>
+
+                      {/* <div className="mt-3 px-2 text-xs border-t pt-2" style={{ borderColor: "color-mix(in srgb, var(--border) 8%, transparent)" }}>
+
+                        <div className="flex items-center justify-between">
+                          <span className="ui-muted">Role</span>
+                        
+                        </div>
+                        {user?.phone ? (
+                          <div className="mt-2 flex items-center justify-between">
+                            <span className="ui-muted">Phone</span>
+                            <span className="ui-title">{user.phone}</span>
+                          </div>
+                        ) : null}
+                      </div> */}
                     </div>
 
                     <Link
@@ -196,12 +210,22 @@ export default function NavBar() {
                       Edit Profile
                     </Link>
 
+                    {user?.userType === "freelancer" ? (
+                      <Link
+                        href="/portfolio"
+                        onClick={() => setProfileOpen(false)}
+                        className={`block rounded-lg px-3 py-2 text-xs font-medium md:text-sm ${isPortfolioActive ? "ui-nav-link-active" : "ui-nav-link"}`}
+                      >
+                        Edit Portfolio
+                      </Link>
+                    ) : null}
+
                     <button
                       onClick={() => {
                         setProfileOpen(false);
                         useAuthStore.getState().logout();
                       }}
-                      className="ui-nav-link mt-3 block w-full rounded-lg border px-3 py-2 text-left text-xs font-medium md:text-sm"
+                      className="ui-nav-link mt-3 block w-full rounded-lg border px-3 py-2 text-left text-xs font-medium md:text-sm hover:bg-red-500 hover:text-white! hover:font-bold transition-all ease-in-out duration-500"
                       style={{ borderColor: "color-mix(in srgb, var(--border) 24%, transparent)" }}
                     >
                       Logout

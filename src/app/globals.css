@@ -100,14 +100,16 @@ html {
 }
 
 .ui-nav-link-active {
-  background: #191a23;
-  color: #ffffff;
+  text-decoration: underline;
+  /* background: #191a23; */
+  /* color: #ffffff; */
+  text-underline-offset: 2px;
   transition: color var(--dur-fast) var(--ease-smooth), background-color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
 }
 
 .ui-nav-link-active:hover,
 .ui-nav-link-active:focus-visible {
-  color: #ffffff;
+  color: #000;
 }
 
 html[data-theme="dark"] .ui-nav-link {
@@ -242,6 +244,7 @@ html[data-theme="dark"] .ui-nav-link-active:focus-visible {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -253,6 +256,7 @@ html[data-theme="dark"] .ui-nav-link-active:focus-visible {
     opacity: 0;
     transform: scaleY(0.94);
   }
+
   to {
     opacity: 1;
     transform: scaleY(1);
