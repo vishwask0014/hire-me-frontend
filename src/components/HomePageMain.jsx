@@ -19,12 +19,12 @@ const navLinks = [
 const brands = ["amazon", "dribbble", "hubspot", "notion", "netflix", "zoom"];
 
 const services = [
-  { titleTop: "Search Engine", titleBottom: "Optimization", image: "/images/service-analytics.png", tone: "light" },
-  { titleTop: "Pay-per-click", titleBottom: "Advertising", image: "/images/service-email.png", tone: "lime" },
-  { titleTop: "Social Media", titleBottom: "Marketing", image: "/images/service-social.png", tone: "dark" },
-  { titleTop: "Email", titleBottom: "Marketing", image: "/images/service-content.png", tone: "light" },
-  { titleTop: "Content", titleBottom: "Creation", image: "/images/service-brand.png", tone: "lime" },
-  { titleTop: "Analytics and", titleBottom: "Tracking", image: "/images/service-seo.png", tone: "dark" },
+  { titleTop: "Portfolio", titleBottom: "Showcasing", image: "/images/service-analytics.png", tone: "light" },
+  { titleTop: "Photographer", titleBottom: "Discovery", image: "/images/service-email.png", tone: "lime" },
+  { titleTop: "Availability", titleBottom: "Matching", image: "/images/service-social.png", tone: "dark" },
+  { titleTop: "Client", titleBottom: "Chat", image: "/images/service-content.png", tone: "light" },
+  { titleTop: "Resume", titleBottom: "Support", image: "/images/service-brand.png", tone: "lime" },
+  { titleTop: "Booking and", titleBottom: "Tracking", image: "/images/service-seo.png", tone: "dark" },
 ];
 
 const pricingPlans = [
@@ -34,29 +34,29 @@ const pricingPlans = [
 ];
 
 const processSteps = [
-  { id: 1, title: "Consultation", desc: "During the initial consultation, we discuss your business goals, target audience, and current marketing efforts. This helps us understand your needs and tailor a strategy that aligns with your objectives." },
-  { id: 2, title: "Research and Strategy Development", desc: "We analyze your market, audience behavior, and competitors, then build a practical strategy with channels, messaging, and measurable KPIs." },
-  { id: 3, title: "Implementation", desc: "Our team executes the agreed plan across selected channels, ensuring consistent quality, timeline visibility, and alignment with your brand voice." },
-  { id: 4, title: "Monitoring and Optimization", desc: "We continuously monitor campaign performance, identify bottlenecks, and optimize creatives, targeting, and budget allocation to improve outcomes." },
-  { id: 5, title: "Reporting and Communication", desc: "You receive regular reports with clear metrics, progress summaries, and next steps, supported by open communication for fast decisions." },
-  { id: 6, title: "Continual Improvement", desc: "Based on data and feedback, we refine strategy iteratively to maintain momentum and drive long-term, compounding growth." },
+  { id: 1, title: "Profile Setup", desc: "Photographers sign up, choose their level (newbie/professional), set availability, and add location plus starting rates." },
+  { id: 2, title: "Portfolio or Resume", desc: "Professional photographers publish past shoots and links, while newbies can add resume links and skill highlights." },
+  { id: 3, title: "Requirement Discovery", desc: "Hirers post shoots and photographers browse matching requirements by budget, date flexibility, and location." },
+  { id: 4, title: "Live Conversation", desc: "Both sides use in-app chat to clarify event type, style references, deliverables, and timeline before booking." },
+  { id: 5, title: "Booking Confirmation", desc: "Once both sides agree, the requirement is accepted and tracked from the dashboard with clear status visibility." },
+  { id: 6, title: "Work Delivery", desc: "Photographers deliver assets and keep relationship history for repeat bookings and better social proof." },
 ];
 
 const team = [
-  { name: "John Smith", role: "CEO and Founder", desc: "10+ years of experience in digital marketing. Expertise in SEO, PPC, and content strategy." },
-  { name: "Jane Doe", role: "Director of Operations", desc: "7+ years of experience in project management and team leadership. Strong in process and delivery execution." },
-  { name: "Michael Brown", role: "Senior SEO Specialist", desc: "5+ years of experience in SEO and content creation. Proven record in organic growth and rankings." },
-  { name: "Emily Johnson", role: "PPC Manager", desc: "3+ years of experience in paid search advertising. Skilled in campaign optimization and ROI improvement." },
-  { name: "Brian Williams", role: "Social Media Specialist", desc: "4+ years of experience in social media marketing. Strong at audience growth and engagement." },
-  { name: "Sarah Kim", role: "Content Creator", desc: "2+ years of experience in writing and editing. Creates clear, high-performing brand content." },
+  { name: "John Smith", role: "Founder", desc: "Built photographer communities and booking workflows for local creators." },
+  { name: "Jane Doe", role: "Operations Lead", desc: "Designs smooth onboarding for newbie freelancers and first-time clients." },
+  { name: "Michael Brown", role: "Photography Mentor", desc: "Helps photographers improve portfolio presentation and client pitching." },
+  { name: "Emily Johnson", role: "Client Success", desc: "Guides hirers to choose photographers by style, availability, and budget." },
+  { name: "Brian Williams", role: "Community Manager", desc: "Supports photographer growth with feedback and networking sessions." },
+  { name: "Sarah Kim", role: "Content Lead", desc: "Publishes practical guides for freelance photographers entering the market." },
 ];
 
 const testimonials = [
   {
     quote:
-      "We have been working with Positivus for the past year and have seen a significant increase in website traffic and inbound leads as a result of their strategic SEO and PPC efforts.",
+      "We quickly found an event photographer based on availability and style, and the entire shoot workflow was managed smoothly through chat.",
     name: "John Smith",
-    role: "Marketing Director at XYZ Corp",
+    role: "Event Manager at XYZ Corp",
   },
   {
     quote:
@@ -201,10 +201,10 @@ export default function HomePageMain() {
           <div>
             <h1 className="max-w-[530px] text-[36px] font-medium leading-[1.06] md:text-[52px] md:leading-[1.05] lg:text-[60px] lg:leading-[1.06]">Navigating the digital landscape for success</h1>
             <p className="mt-5 max-w-[498px] text-[17px] leading-7 md:mt-7 md:text-[20px] md:leading-7" style={{ color: textSoft }}>
-              Our hiring workspace helps businesses find the right freelancers, discuss details faster, and move from requirement to accepted work with clarity.
+              HireMe helps photographers get clients based on availability, style, and experience. Newbies can start with a resume link, while professionals showcase past shoots.
             </p>
             <div className="mt-7 flex flex-wrap gap-3 md:mt-9">
-              <Link href="/signup" className="rounded-[14px] px-6 py-4 text-[17px] leading-6 md:px-8 md:py-[19px] md:text-[20px] md:leading-7" style={{ background: primaryCtaBg, color: primaryCtaText }}>Book a consultation</Link>
+              <Link href="/signup" className="rounded-[14px] px-6 py-4 text-[17px] leading-6 md:px-8 md:py-[19px] md:text-[20px] md:leading-7" style={{ background: primaryCtaBg, color: primaryCtaText }}>Join as Photographer</Link>
               <Link href="/login" className="rounded-[14px] border px-6 py-4 text-[17px] leading-6 md:px-8 md:py-[19px] md:text-[20px] md:leading-7" style={outlineBtnStyle}>Login</Link>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function HomePageMain() {
         </section>
 
         <section id="services" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Services" desc="At our digital platform, we provide focused workflows to help hirers and freelancers collaborate effectively." />
+          <SectionHeader title="Services" desc="Focused workflows for hirers and photographers to connect, discuss shoots, and close bookings quickly." />
           <div className="grid gap-5 md:gap-10 md:grid-cols-2">
             {services.map((s) => {
               const dark = s.tone === "dark";
@@ -265,7 +265,7 @@ export default function HomePageMain() {
         </section>
 
         <section id="pricing" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Pricing" desc="Flexible plans to match your hiring and collaboration needs." />
+          <SectionHeader title="Pricing" desc="Flexible plans for photographers at every stage, from newbie to professional." />
           <div className="grid gap-5 md:gap-6 md:grid-cols-3">
             {pricingPlans.map((plan) => (
               <article key={plan.name} className="rounded-[24px] border p-5 md:rounded-[30px] md:p-7" style={{ background: plan.featured ? LIME : softPanel, color: plan.featured ? "#191A23" : "var(--foreground)", borderColor: "var(--border)", boxShadow: "var(--card-shadow)" }}>
@@ -290,10 +290,10 @@ export default function HomePageMain() {
             <div>
               <h3 className="text-[26px] font-medium md:text-[30px]">Let&apos;s make things happen</h3>
               <p className="mt-3 max-w-xl text-[16px] md:mt-4 md:text-[18px]" style={{ color: textSoft }}>
-                Contact us today to learn more about how our digital marketing services can help your business grow and succeed online.
+                Start receiving photography leads, share your best work, and grow your freelance career with structured client workflows.
               </p>
               <Link href="/signup" className="mt-5 inline-block rounded-[12px] px-6 py-3.5 text-[16px] md:mt-6 md:rounded-[14px] md:px-8 md:py-5 md:text-[20px]" style={{ background: primaryCtaBg, color: primaryCtaText }}>
-                Get your free proposal
+                Create Photographer Account
               </Link>
             </div>
             <Image src="/images/cta-stars.png" alt="Decorative stars" width={494} height={395} className="mx-auto h-auto w-full max-w-[360px]" />
@@ -301,13 +301,13 @@ export default function HomePageMain() {
         </section>
 
         <section id="cases" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Case Studies" desc="Explore real-life examples of our proven digital marketing success through our case studies." />
+          <SectionHeader title="Case Studies" desc="See how photographers and clients successfully matched and completed bookings using HireMe." />
           <div className="rounded-[30px] px-6 py-8 text-white md:rounded-[45px] md:px-[60px] md:py-[88px]" style={{ background: darkPanel }}>
             <div className="grid gap-8 md:grid-cols-3 md:gap-0">
               {[
-                "For a local restaurant, we implemented a targeted PPC campaign that resulted in a 50% increase in website traffic and a 25% increase in sales.",
-                "For a B2B software company, we developed an SEO strategy that resulted in a first page ranking for key keywords and a 200% increase in organic traffic.",
-                "For a national retail chain, we created a social media marketing campaign that increased followers by 25% and generated a 20% increase in online sales.",
+                "A café owner found a food photographer in under 24 hours and launched a new campaign with fresh visuals by the weekend.",
+                "A newbie photographer added resume and sample links, got shortlisted, and completed their first paid portrait shoot in two weeks.",
+                "A professional wedding photographer showcased past albums, shared availability, and booked three premium events in one month.",
               ].map((text) => (
                 <article key={text} className="flex flex-col border-white/30  md:border-r md:px-8 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
                   <p className="max-w-[286px] text-[16px] leading-[1.55] md:text-[18px] md:leading-[1.45]" style={{ color: "color-mix(in srgb, #ffffff 78%, transparent)" }}>
@@ -353,7 +353,7 @@ export default function HomePageMain() {
         </section>
 
         <section id="about" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Team" desc="Meet the skilled and experienced team behind our successful digital marketing strategies." />
+          <SectionHeader title="Team" desc="Meet the team helping photographers and clients collaborate from inquiry to delivery." />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {team.map((m) => (
               <article key={m.name} className="rounded-[22px] border p-5 md:rounded-[30px] md:p-6" style={{ background: "var(--surface)", borderColor: "var(--border)", boxShadow: "var(--card-shadow)" }}>
@@ -379,7 +379,7 @@ export default function HomePageMain() {
         </section>
 
         <section id="testimonials" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Testimonials" desc="Hear from our satisfied clients: read our testimonials to learn more about our digital marketing services." />
+          <SectionHeader title="Testimonials" desc="Hear from hirers and photographers who used HireMe to close bookings faster." />
           <div className="rounded-[30px] px-5 py-8 text-white md:rounded-[45px] md:px-[70px] md:py-[84px]" style={{ background: darkPanel }}>
             <div className="mx-auto w-full max-w-[1100px]">
               <p className="mb-6 text-sm uppercase tracking-[0.2em] md:mb-8" style={{ color: "color-mix(in srgb, #ffffff 62%, transparent)" }}>
@@ -494,7 +494,7 @@ export default function HomePageMain() {
         </section>
 
         <section id="contact" className="space-y-8 md:space-y-10">
-          <SectionHeader title="Contact Us" desc="Connect with us: let's discuss your digital marketing needs." />
+          <SectionHeader title="Contact Us" desc="Connect with us to discuss photographer onboarding, hiring support, or platform partnerships." />
           <div className="rounded-[28px] p-5 md:rounded-[45px] md:p-10" style={{ background: softPanel }}>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto]">
               <form className="space-y-4">

@@ -72,7 +72,7 @@ export default function NewRequirementPage() {
       <section className="ui-card p-6">
         <h1 className="ui-title text-xl">Not Allowed</h1>
         <p className="ui-muted mt-2 text-sm">
-          You are logged in as freelancer. Only hirer users can post requirements.
+          You are logged in as photographer. Only hirer users can post requirements.
         </p>
       </section>
     );
@@ -89,7 +89,7 @@ export default function NewRequirementPage() {
             Post New Requirement
           </h1>
           <p className="ui-muted mt-2 text-sm md:text-base">
-            Write clear scope, budget, and skills to attract better freelancer matches.
+            Write clear scope, budget, and style requirements to attract better photographer matches.
           </p>
         </div>
 

@@ -111,7 +111,7 @@ export default function RequirementsPage() {
         <p className="rounded-md px-2 py-1 text-xs font-semibold tet-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "var(--foreground)", width: "fit-content" }}>Requirements</p>
         <h1 className="ui-title mt-3 text-3xl md:text-4xl">All Requirements</h1>
         <p className="ui-muted mt-2 text-sm md:text-base">
-          This page is shared for both hirer and freelancer users. Browse all requirements and collaborate.
+          This page is shared for both hirer and photographer users. Browse all requirements and collaborate.
         </p>
       </div>
 
@@ -201,7 +201,7 @@ export default function RequirementsPage() {
             <>
               <h2 className="ui-title text-lg">Posting Access</h2>
               <p className="ui-muted mt-2 text-sm">
-                You are logged in as freelancer. You can browse, chat, and accept requirements from Dashboard.
+                You are logged in as photographer. You can browse, chat, and accept requirements from Dashboard.
               </p>
               <Link href="/dashboard" className="ui-link mt-4 inline-block text-sm">
                 Go to Dashboard

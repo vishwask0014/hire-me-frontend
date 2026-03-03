@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "HireMe",
-  description: "Freelancer and hirer platform",
+  description: "Photographer hiring platform for newbies and professionals",
 };
 
 export default function RootLayout({ children }) {

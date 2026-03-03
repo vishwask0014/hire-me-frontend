@@ -108,7 +108,7 @@ export default function DashboardPage() {
       <div className="ui-card-strong p-6 md:p-8">
         <p className="rounded-md px-2 py-1 text-xs font-semibold !text-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "#000", width: "fit-content" }}>Dashboard</p>
         <h1 className="ui-title mt-3 text-3xl md:text-4xl">
-          {isFreelancer ? "Freelancer Dashboard" : "ssss"}
+          {isFreelancer ? "Photographer Dashboard" : "Hirer Dashboard"}
         </h1>
         <p className="ui-muted mt-2 text-sm md:text-base">
           Welcome {dashboard.user?.name || "User"}.
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                     <p className="ui-muted mt-1 text-xs">
                       {isFreelancer
                         ? `Hirer: ${item.hirerName}`
-                        : `Accepted By: ${item.acceptedFreelancerName || "Freelancer"}`}
+                        : `Accepted By: ${item.acceptedFreelancerName || "Photographer"}`}
                     </p>
                     <p className="ui-muted mt-2 text-sm line-clamp-2">{item.description}</p>
                     <div className="mt-3 flex items-center gap-2">

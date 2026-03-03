@@ -18,14 +18,14 @@ export default function SignupPage() {
     {
       key: "hirer",
       title: "Hirer",
-      desc: "Post requirements, review freelancers, and manage accepted work.",
-      points: ["Create requirements", "Review freelancer responses", "Track active projects"],
+      desc: "Post shoot requirements, review photographer profiles, and hire by availability.",
+      points: ["Create photography requirements", "Review portfolios and resume links", "Track active bookings"],
     },
     {
       key: "freelancer",
-      title: "Freelancer",
-      desc: "Browse requirements, chat with hirers, and accept relevant work.",
-      points: ["Find matching requirements", "Discuss project details", "Accept and deliver work"],
+      title: "Photographer",
+      desc: "Join as a newbie or professional photographer, share your profile, and get clients.",
+      points: ["Set availability and rates", "Showcase past shoots or add resume link", "Get hired through chat and bookings"],
     },
   ];
 
@@ -70,7 +70,7 @@ export default function SignupPage() {
             <Briefcase className="h-8 w-8" />
           </div>
           <h1 className="ui-title text-3xl md:text-4xl">Create Account</h1>
-          <p className="ui-muted mt-2 text-sm md:text-base">Register as hirer or freelancer and start collaborating.</p>
+          <p className="ui-muted mt-2 text-sm md:text-base">Register as hirer or photographer and start collaborating.</p>
         </div>
         <form onSubmit={onSubmit} className="grid gap-4 md:grid-cols-2">
           <input

@@ -4,40 +4,40 @@ import Link from "next/link";
 
 const services = [
   {
-    title: "Requirement Discovery",
-    description: "Convert business goals into clear technical scopes so freelancers can respond faster.",
+    title: "Photographer Onboarding",
+    description: "Newbie and professional photographers can create profiles in minutes with availability and pricing.",
   },
   {
-    title: "Freelancer Matching",
-    description: "Filter by skills, budget, and location to connect with the right talent quickly.",
+    title: "Client Matching",
+    description: "Hirers can filter by style, budget, and location to discover the right photographer quickly.",
   },
   {
     title: "Live Collaboration",
-    description: "Built-in chat keeps requirement discussions and updates in one place.",
+    description: "Built-in chat keeps shoot requirements, timelines, and updates in one place.",
   },
   {
-    title: "Acceptance Workflow",
-    description: "Track active and accepted requirements with role-specific dashboards.",
+    title: "Portfolio + Resume",
+    description: "Professionals can showcase work samples, while newbies can share resume links to start getting clients.",
   },
 ];
 
 const processSteps = [
-  "Create account as hirer or freelancer",
-  "Post or browse requirements",
-  "Open chat to discuss details",
-  "Accept and track work from dashboard",
+  "Create account as hirer or photographer",
+  "Photographer sets availability and portfolio/resume",
+  "Hirer posts shoot requirement and starts chat",
+  "Confirm booking and track active work from dashboard",
 ];
 
 const testimonials = [
   {
     name: "Rohan Mehta",
     role: "Startup Founder",
-    text: "We moved from endless calls to clear requirement threads and accepted faster in a week.",
+    text: "We hired a photographer for our launch event in one day because availability and portfolio were clear.",
   },
   {
     name: "Aisha Khan",
-    role: "Freelance Developer",
-    text: "The active and accepted views make pipeline management easy and reduce missed opportunities.",
+    role: "Newbie Photographer",
+    text: "I shared my resume and sample shots, got my first client, and now I manage bookings from one dashboard.",
   },
 ];
 
@@ -49,10 +49,10 @@ export default function HomePageNonLoggedIn() {
           <div>
             <p className="ui-link text-xs uppercase tracking-[0.2em]">HireMe</p>
             <h1 className="ui-title mt-3 text-3xl leading-tight md:text-5xl">
-              A modern workspace for hirers and freelancers
+              A modern workspace for hirers and photographers
             </h1>
             <p className="ui-muted mt-4 max-w-xl text-sm md:text-base">
-              Post requirements, ask clarifying questions in chat, and manage active and accepted work in one place.
+              Hire photographers based on availability and style. Photographers can share work samples or resume and get discovered faster.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/signup" className="ui-btn">
@@ -66,11 +66,11 @@ export default function HomePageNonLoggedIn() {
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
             <article className="ui-card p-4">
               <p className="ui-muted text-xs uppercase tracking-[0.14em]">Role Based</p>
-              <p className="ui-title mt-1 text-lg">Hirer + Freelancer</p>
+              <p className="ui-title mt-1 text-lg">Hirer + Photographer</p>
             </article>
             <article className="ui-card p-4">
               <p className="ui-muted text-xs uppercase tracking-[0.14em]">Communication</p>
-              <p className="ui-title mt-1 text-lg">Requirement-first Chat</p>
+              <p className="ui-title mt-1 text-lg">Shoot-first Chat</p>
             </article>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function HomePageNonLoggedIn() {
         <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
           <div>
             <h2 className="ui-title text-2xl">Need help with your next project?</h2>
-            <p className="ui-muted mt-2 text-sm">Sign up and start posting requirements or collaborating with clients today.</p>
+            <p className="ui-muted mt-2 text-sm">Sign up and start booking photographers or getting your first photography clients today.</p>
           </div>
           <Link href="/signup" className="ui-btn w-fit">
             Create Account

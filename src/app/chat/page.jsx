@@ -61,7 +61,7 @@ function ChatPageContent() {
     setActiveThread(data.thread);
   }, []);
 
-  const ensureFreelancerThread = useCallback(async (targetRequirementId) => {
+  const ensurePhotographerThread = useCallback(async (targetRequirementId) => {
     const response = await fetch(apiUrl("/api/chat/threads"), {
       ...requestOptions,
       method: "POST",
@@ -93,15 +93,15 @@ function ChatPageContent() {
 
         if (requirementId) {
           try {
-            const thread = await ensureFreelancerThread(requirementId);
+            const thread = await ensurePhotographerThread(requirementId);
             setActiveThreadId(thread.id);
           } catch (threadError) {
-            // For hirer users, this can happen if no freelancer is assigned yet.
+            // For hirer users, this can happen if no photographer is assigned yet.
             const msg = threadError?.message || "Unable to open chat.";
-            if (!msg.toLowerCase().includes("freelancer is required")) {
+            if (!msg.toLowerCase().includes("photographer is required")) {
               throw threadError;
             }
-            setError("Chat can be opened after a freelancer is assigned to this requirement.");
+            setError("Chat can be opened after a photographer is assigned to this requirement.");
           }
         }
 
@@ -114,7 +114,7 @@ function ChatPageContent() {
     }
 
     init();
-  }, [ensureFreelancerThread, loadThreads, requirementId]);
+  }, [ensurePhotographerThread, loadThreads, requirementId]);
 
   useEffect(() => {
     async function run() {
@@ -264,7 +264,7 @@ function ChatPageContent() {
         <p className="rounded-md px-2 py-1 text-xs font-semibold uppercase text-black tracking-[0.18em]" style={{ background: "var(--accent)", color: "#000", width: "fit-content" }}>Chat</p>
         <h1 className="ui-title mt-3 text-3xl md:text-4xl">Messages</h1>
         <p className="ui-muted mt-2 text-sm md:text-base">
-          Ask for more details and coordinate directly with your {me.userType === "hirer" ? "freelancers" : "hirers"}.
+          Ask for more details and coordinate directly with your {me.userType === "hirer" ? "photographers" : "clients"}.
         </p>
         <p className="ui-muted mt-2 text-xs">
           Live sync: {liveStatus}
@@ -318,7 +318,7 @@ function ChatPageContent() {
               <header className="border-b px-5 py-4" style={{ borderColor: "var(--border)" }}>
                 <p className="ui-title text-sm">{activeThread.requirementTitle}</p>
                 <p className="ui-muted mt-1 text-xs">
-                  {me.userType === "hirer" ? activeThread.freelancerName : activeThread.hirerName}
+                  {me.userType === "hirer" ? activeThread.freelancerName || "Photographer" : activeThread.hirerName}
                 </p>
               </header>
 
