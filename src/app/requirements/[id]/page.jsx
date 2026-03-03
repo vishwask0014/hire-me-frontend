@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
+import { formatBudgetInr } from "@/lib/currency";
 
 export default function RequirementDetailPage() {
   const params = useParams();
@@ -62,7 +63,7 @@ export default function RequirementDetailPage() {
         <p className="rounded-md px-2 py-1 text-xs font-semibold text-black uppercase tracking-[0.18em]" style={{ background: "var(--accent)", color: "var(--foreground)", width: "fit-content" }}>Requirement</p>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <h1 className="ui-title text-2xl md:text-4xl">{requirement.title}</h1>
-          <span className="ui-chip">Budget: {requirement.budget}</span>
+          <span className="ui-chip">Budget (INR): {formatBudgetInr(requirement.budget)}</span>
         </div>
         <p className="ui-muted text-sm md:text-base">{requirement.description}</p>
       </div>

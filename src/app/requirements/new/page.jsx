@@ -123,11 +123,11 @@ export default function NewRequirementPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="ui-title mb-2 block text-sm">
-                Budget
+                Budget (INR)
               </label>
               <input
                 className="ui-input"
-                placeholder="Example: USD 1500 fixed"
+                placeholder="Example: ₹1,50,000 fixed"
                 value={budget}
                 onChange={(event) => setBudget(event.target.value)}
                 required

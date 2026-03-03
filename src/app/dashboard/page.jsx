@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
+import { formatBudgetInr } from "@/lib/currency";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -156,7 +157,7 @@ export default function DashboardPage() {
                   <article key={item.id} className="rounded-2xl border p-4" style={{ borderColor: "color-mix(in srgb, var(--border) 35%, transparent)", background: "color-mix(in srgb, var(--surface) 70%, var(--surface-2) 30%)" }}>
                     <h3 className="ui-title text-base">{item.title}</h3>
                     <p className="ui-muted mt-1 text-xs">
-                      Budget: {item.budget} | Location: {item.location}
+                      Budget (INR): {formatBudgetInr(item.budget)} | Location: {item.location}
                     </p>
                     <p className="ui-muted mt-2 text-sm line-clamp-2">{item.description}</p>
                     <div className="mt-3 flex items-center gap-2">

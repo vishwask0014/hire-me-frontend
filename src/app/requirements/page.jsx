@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { apiUrl, requestOptions } from "@/lib/api-client";
+import { formatBudgetInr } from "@/lib/currency";
 
 export default function RequirementsPage() {
   const [requirements, setRequirements] = useState([]);
@@ -125,7 +126,7 @@ export default function RequirementsPage() {
               <article key={item.id} className="ui-card p-5 md:p-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="ui-title text-xl">{item.title}</h2>
-                  <span className="ui-chip">Budget: {item.budget}</span>
+                  <span className="ui-chip">Budget (INR): {formatBudgetInr(item.budget)}</span>
                 </div>
                 <p className="ui-muted mt-2 line-clamp-2 text-sm">{item.description}</p>
                 <p className="ui-muted mt-2 text-xs">
@@ -170,7 +171,7 @@ export default function RequirementsPage() {
                 />
                 <input
                   className="ui-input"
-                  placeholder="Budget"
+                  placeholder="Budget (INR)"
                   value={budget}
                   onChange={(event) => setBudget(event.target.value)}
                   required

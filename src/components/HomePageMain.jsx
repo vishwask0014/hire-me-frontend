@@ -28,9 +28,9 @@ const services = [
 ];
 
 const pricingPlans = [
-  { name: "Basic", price: "$49/mo", points: ["1 project", "Email support", "Basic analytics"], featured: false },
-  { name: "Pro", price: "$99/mo", points: ["5 projects", "Priority support", "Advanced analytics"], featured: true },
-  { name: "Enterprise", price: "$199/mo", points: ["Unlimited projects", "Dedicated success manager", "Custom workflows"], featured: false },
+  { name: "Basic", price: "₹4,099/mo", points: ["1 project", "Email support", "Basic analytics"], featured: false },
+  { name: "Pro", price: "₹8,299/mo", points: ["5 projects", "Priority support", "Advanced analytics"], featured: true },
+  { name: "Enterprise", price: "₹16,599/mo", points: ["Unlimited projects", "Dedicated success manager", "Custom workflows"], featured: false },
 ];
 
 const processSteps = [
