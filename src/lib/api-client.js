@@ -9,6 +9,7 @@ const isInvalidDashboardUrl =
 const API_BASE_URL =
   normalizedApiBaseUrl && !isInvalidDashboardUrl
     ? normalizedApiBaseUrl
+    // : "https:/hire-me-backend-gamma.vercel.app/";
     : "http://localhost:4000";
 
 if (typeof window !== "undefined" && isInvalidDashboardUrl) {
@@ -18,8 +19,8 @@ if (typeof window !== "undefined" && isInvalidDashboardUrl) {
 }
 
 export function apiUrl(path) {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${API_BASE_URL}${normalized}`;
+  const normalizedPath = String(path || "").replace(/^\/+/, "");
+  return `${API_BASE_URL}/${normalizedPath}`;
 }
 
 export const requestOptions = {

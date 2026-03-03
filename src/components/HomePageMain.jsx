@@ -104,7 +104,7 @@ export default function HomePageMain() {
     if (typeof window === "undefined") return "light";
     const savedTheme = localStorage.getItem("hireme-theme");
     if (savedTheme === "dark" || savedTheme === "light") return savedTheme;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return "light";
   });
 
   useEffect(() => {
